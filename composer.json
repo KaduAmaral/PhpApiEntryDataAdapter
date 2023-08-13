@@ -1,0 +1,25 @@
+{
+    "name": "kaduamaral/php-api-entry-data-adapter",
+    "description": "PHP API Payload Adapter",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "KaduAmaral\\PhpApiEntryDataAdapter\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Carlos Amaral",
+            "email": "kaduamaral@live.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^10.3"
+    }
+}
