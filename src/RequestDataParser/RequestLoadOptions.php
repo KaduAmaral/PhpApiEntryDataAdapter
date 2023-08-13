@@ -34,11 +34,15 @@ class RequestLoadOptions {
         if (!empty($this->_filters) || !empty($this->_invalidFilters)) return;
         $this->_filters = new FilterLoadCollection();
 
-        if (!empty($filters) && is_array($filters)) {
+        $filters = $this->getRequestDataValue('filters') ?: $this->getRequestDataValue('filter');
+
+        if (
+            empty($filters) ||
+            (!empty($filters) && !is_array($filters))
+        ) {
             return;
         }
 
-        $filters = $this->getRequestDataValue('filters') ?: $this->getRequestDataValue('filter');
         
         if (array_is_list($filters)) {
             foreach ($filters as $filter) {

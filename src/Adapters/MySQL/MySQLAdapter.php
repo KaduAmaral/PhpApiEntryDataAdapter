@@ -14,6 +14,10 @@ class MySQLAdapter extends FilterAdapter {
     ) { }
 
     public function dumpCollection(FilterLoadCollection $collection): MySQLAdapterResult {
+        if (empty($collection->count())) {
+            return new MySQLAdapterResult(NULL, NULL);
+        }
+
         $sqls = [];
         $vars = [];
         /** @var FilterLoadOption */
@@ -22,15 +26,6 @@ class MySQLAdapter extends FilterAdapter {
 
             $sqls[] = $result->sql;
             $vars = array_merge($vars, $result->vars);
-
-            // $map = $mapping[$filter->field] ?? NULL;
-
-            // $mapColumn  = is_string($map) ? $map : $map['column']   ?? $map[0] ?? NULL;
-            // $mapVarName = is_string($map) ? $map : $map['var']      ?? $map[1] ?? NULL;
-
-            // $stmt = $filter->getStatement($mapColumn, $mapVarName);
-            // $sqls[] = $stmt->sql;
-            
         }
 
 

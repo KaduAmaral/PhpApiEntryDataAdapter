@@ -23,8 +23,8 @@ class FilterLoadCollection implements Iterator, Countable {
         $this->filters[] = $filter;
     }
 
-    public function current(): FilterLoadOption {
-        return $this->filters[$this->currentPosition] ?? FALSE;
+    public function current(): ?FilterLoadOption {
+        return $this->filters[$this->currentPosition] ?? NULL;
     }
 
     public function key(): int {

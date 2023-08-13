@@ -1,6 +1,10 @@
 <?php
 
 namespace Tests;
+
+use KaduAmaral\PhpApiEntryDataAdapter\Adapters\MySQL\MySQLAdapter;
+use KaduAmaral\PhpApiEntryDataAdapter\Adapters\MySQL\MySQLAdapterResult;
+use KaduAmaral\PhpApiEntryDataAdapter\RequestDataParser\FilterLoadCollection;
 use KaduAmaral\PhpApiEntryDataAdapter\RequestDataParser\FilterOperatorEnum;
 use KaduAmaral\PhpApiEntryDataAdapter\RequestDataParser\RequestLoadOptions;
 use PHPUnit\Framework\TestCase;
@@ -25,5 +29,22 @@ class TestStandardProperties extends TestCase {
     public function testGetDefaultSkip() {
         $loadOptions = new RequestLoadOptions(NULL);
         $this->assertSame(50, $loadOptions->skip(50));
+    }
+
+    public function testEmptyFilter() {
+        $loadOptions = new RequestLoadOptions([]);
+        
+        /** @var FilterLoadCollection */
+        $filterCollection = $loadOptions->filters();
+        
+        $this->assertCount(0, $filterCollection);
+
+        $mysqlAdapter = new MySQLAdapter([]);
+
+        /** @var MySQLAdapterResult */
+        $statement = $filterCollection->filterStatement($mysqlAdapter);
+
+        $this->assertSame(NULL, $statement->sql);
+        $this->assertSame(NULL, $statement->vars);
     }
 }
